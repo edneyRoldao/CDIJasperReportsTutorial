@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<script type="text/javascript">
+			function tratarFechamentoModal(args){
+				if(!args.validationFailed) {
+					PF('addDialogProduto').hide();
+				}
+			}
+		</script>
+	</h:head>
+	<h:body>
+		<h:form id="frm">
+		
+			<p:button value="Adicionar Produto" onclick="PF('addDialogProduto').show(); return false;"/>
+		
+			<p:dataTable value="#{produtoDialogBean.produtos}" var="prod" id="prodTB" emptyMessage="Nenhum produto.">
+				<p:column headerText="Produto">
+					<h:outputText value="#{prod}"/>
+				</p:column>
+			</p:dataTable>
+			
+			<p:dialog header="Inclusão Produto" widgetVar="addDialogProduto" modal="true" resizable="false">
+				<h:panelGroup id="inclusaoPanel">
+					<p:messages/>
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Nome"/>
+						<p:inputText value="#{produtoDialogBean.nomeProduto}" required="true" requiredMessage="Informe o produto"/>
+					</h:panelGrid>
+					<p:commandButton value="Incluir" action="#{produtoDialogBean.addProduto}" update="prodTB inclusaoPanel" oncomplete="tratarFechamentoModal(args)"/>
+				</h:panelGroup>
+			</p:dialog>
+		
+		</h:form>
+	</h:body>
+</html>

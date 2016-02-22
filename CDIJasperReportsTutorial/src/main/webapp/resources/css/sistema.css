@@ -1,0 +1,163 @@
+@chaset "utf-8";
+
+body {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0px;
+	font-weight: normal;
+}
+
+header {
+	padding: 5px 0px;
+	margin-top: 20px;
+	height: 30px;
+	background-color: #545454;
+	color: #fff;
+	box-shadow: 0px 2px 2px #ccc; 	
+}
+
+header > div {
+	margin-left: 10px;
+}
+
+.logoImg{
+	height: 35px;
+}
+
+.container {
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+footer {
+	padding: 0px 8px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+footer img {
+	width: 25px;
+	height: 25px;
+}
+
+h1 {
+	font-size: 24px;
+	font-weight: 500;
+	padding: 0px;
+	margin: 0px;
+}
+
+#login-diag {
+	width: 290px;
+	margin: auto;
+	margin-top: 150px;
+}
+
+.grid-login {
+	background-color: #f2f2f2;
+	border-radius: 8px;
+	border: 1px solid #ccc;
+	margin-top: 8px;
+	padding: 10px;
+}
+
+.header {
+	width: 150px;
+}
+
+.ui-panelgrid td {
+	height: 35px;
+}
+
+.footerImg {
+	width: 25px;
+	height: 25px;
+}
+
+.ajax-status {
+	position: fixed;
+	top: 70px;
+	right: 50px;
+	width: 35px;
+	height: 35px;
+}
+
+.ui-selectmanycheckbox td label {
+	padding-right: 10px;
+}
+
+.headerPedido {
+	width: 100%;
+	margin-top: 20px;
+}
+
+.itemPedido input {
+	width: 98%;  
+}
+
+.userLogged {
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	margin-right: 60px;
+	font-weight: bold;
+}
+
+/* Tabview css - inicio */
+.ui-tabs .ui-tabs-panel {
+	padding: 0.5em 0.2em !important;
+}
+
+.ui-tabs {
+	padding: 0px !important;
+}
+
+.ui-tabs .ui-tabs-nav {
+	padding: -1px !important;
+}
+
+.ui-tabs.ui-tabs-top > .ui-tabs-nav {
+	padding: 0px !important;
+}
+/* Tabview css - fim */
+
+.menuSistema {
+	border: 0px !important;
+	padding: 0px !important;
+	background: none !important; 
+}
+
+.menuSistema .ui-menu-parent > a .ui-menuitem-text, .menuSistema > .ui-menu-list > .ui-menuitem > a > .ui-menuitem-text {
+    color: #ffffff !important;
+}
+
+.menuSistema .ui-icon-triangle-1-s {
+	background: url(#{resource['images:seta-para-baixo.png']}) no-repeat;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

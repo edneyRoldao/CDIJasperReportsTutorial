@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template/layout-padrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="title">Pesquisa de Pedidos</ui:define>
+			
+	<ui:define name="corpo">
+		<h:form>
+			<br/>
+			<h1>Pesquisa de Pediddos</h1>
+			
+			<p:toolbar style="margin-top:20px">
+			
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisa"/>
+				</p:toolbarGroup>
+				
+				<p:toolbarGroup align="right">
+					<p:button value="Novo Pedido" outcome="/pedidos/cadastro-pedido"/>
+				</p:toolbarGroup>
+				
+			</p:toolbar>		
+		
+			<p:panelGrid columns="2" style="width:100%; margin-top:20px" columnClasses="header, content">
+			
+				<p:outputLabel value="Número"/>
+				<h:panelGroup>
+					<p:inputText size="10"/>
+					a
+					<p:inputText size="10"/>
+				</h:panelGroup>				
+				
+				<p:outputLabel value="Data de criação"/>
+				<h:panelGroup>
+					<p:calendar size="10" pattern="dd/MM/yyyy"/>
+					a
+					<p:calendar size="10" pattern="dd/MM/yyyy"/>
+				</h:panelGroup>				
+	
+				<p:outputLabel value="Vendedor"/>
+				<p:inputText id="vendedor" size="40"/>
+				
+				<p:outputLabel value="Cliente"/>
+				<p:inputText id="cliente" size="40"/>
+				
+				<p:outputLabel value="Status"/>
+				<p:selectManyCheckbox>
+					<f:selectItem itemLabel="Orçamento"/>
+					<f:selectItem itemLabel="Emitido"/>
+					<f:selectItem itemLabel="Cancelado"/>
+				</p:selectManyCheckbox>
+				
+			</p:panelGrid>
+			
+			<p:dataTable id="pedidoTB" value="#{pesquisaPedidosBean.pedidosFiltrados}" var="pedido"
+				style="margin-top:20px" emptyMessage="Nenhum pedido encontrado." rows="20" paginator="true"
+					paginatorAlwaysVisible="false" paginatorPosition="bottom">
+					
+				<p:column headerText="Número" style="text-align:center;width:100px">
+					<h:outputText value="12345"/>	
+				</p:column>
+
+				<p:column headerText="Cliente">
+					<h:outputText value="Supermarket Edney Roldão"/>	
+				</p:column>
+
+				<p:column headerText="Vendedor">
+					<h:outputText value="Nadine Roldão"/>	
+				</p:column>
+
+				<p:column headerText="data da criação" style="text-align:center;width:140px">
+					<h:outputText value="10/05/1015"/>	
+				</p:column>
+
+				<p:column headerText="Valor Total" style="text-align:right;width:120px">
+					<h:outputText value="R$ 1.230,44"/>	
+				</p:column>
+
+				<p:column headerText="Status" style="width:100px">
+					<h:outputText value="Emitido"/>	
+				</p:column>
+
+				<p:column style="text-align:center;width:50px">
+					<p:button icon="ui-icon-pencil" title="Editar"/>	
+				</p:column>
+			
+			</p:dataTable>
+			
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

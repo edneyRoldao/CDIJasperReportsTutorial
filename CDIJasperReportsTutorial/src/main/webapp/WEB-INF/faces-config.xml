@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+    version="2.2">
+    
+    
+    <!-- 
+   		Foram criadas duas classe java que implementam um Handler que trata a ViewExpiredException.
+   		Esta exceção é disparada quando o servidor é reiniciado e o usuário está navegando pela aplicação.
+   		Quando a cituação acima ocorre, o estado dos componentes são perdidos. Ao invés do erro 500, vamos redirecionar para página inicial.
+     -->
+    <factory>
+    	<exception-handler-factory>sistemaDeVendas.jsf.util.JSFExceptionHandlerFactory</exception-handler-factory>
+    </factory>
+    
+    
+    <!-- Configurando a localização padrão - as mensagens de validação serão exibidas pelo facesMessages em portugues -->
+    <application>
+	    <!-- Mapeando o arquivo de propriedades que sobrescreve uma configuração do JSF para exibir o nome do campo na validação -->
+    	<message-bundle>sistemaDeVendas.Messages</message-bundle> 
+    	<locale-config>
+    		<default-locale>pt_BR</default-locale>
+    	</locale-config>
+    </application>
+    
+    
+
+</faces-config>
