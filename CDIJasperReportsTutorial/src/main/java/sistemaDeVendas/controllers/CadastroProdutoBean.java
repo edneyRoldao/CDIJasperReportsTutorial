@@ -1,6 +1,7 @@
 package sistemaDeVendas.controllers;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ViewScoped;
@@ -12,6 +13,7 @@ import sistemaDeVendas.jsf.util.FacesUtil;
 import sistemaDeVendas.model.Categoria;
 import sistemaDeVendas.model.Produto;
 import sistemaDeVendas.repositories.CategoriaRepository;
+import sistemaDeVendas.services.CadastroProdutoService;
 
 @Named
 @ViewScoped
@@ -26,10 +28,13 @@ public class CadastroProdutoBean implements Serializable {
 
 	@Inject
 	private CategoriaRepository categoriaRepository;
+	
+	@Inject
+	private CadastroProdutoService cadastroProdutoService;
 
 	// Esso construtor é utilizado para evitar o nullPointer do objeto produto
 	public CadastroProdutoBean() {
-		produto = new Produto();
+		limpar();
 	}
 
 	
@@ -56,7 +61,15 @@ public class CadastroProdutoBean implements Serializable {
 	 * Método que cadastra um produto no banco de dados.
 	 */
 	public void salvar() {
-		System.out.println("Categoria selecionada: " + categoriaPai.getDescricao());
+		this.produto = cadastroProdutoService.salvar(this.produto);
+		limpar();
+		FacesUtil.addInfoMessage("Produto cadastrado com sucesso !");
+	}
+	
+	private void limpar() {
+		produto = null;
+		categoriaPai = null;
+		subcategorias = new ArrayList<>();
 	}
 
 	// Getters and Setters
