@@ -32,6 +32,7 @@ public class CadastroProdutoBean implements Serializable {
 	@Inject
 	private CadastroProdutoService cadastroProdutoService;
 
+	
 	// Esso construtor é utilizado para evitar o nullPointer do objeto produto
 	public CadastroProdutoBean() {
 		limpar();
@@ -67,7 +68,7 @@ public class CadastroProdutoBean implements Serializable {
 	}
 	
 	private void limpar() {
-		produto = null;
+		produto = new Produto();
 		categoriaPai = null;
 		subcategorias = new ArrayList<>();
 	}
