@@ -53,7 +53,9 @@
 				</p:selectOneMenu>
 				
 				<p:outputLabel value="Valor unitário" for="valor"/>
-				<p:inputText id="valor" size="10" maxlength="10" styleClass="moeda"/>
+				<p:inputText id="valor" size="10" maxlength="10" styleClass="moeda" value="#{cadastroProdutoBean.produto.valorUnitario}">
+					<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+				</p:inputText>
 				
 				<p:outputLabel value="Estoque" for="estoque"/>
 				<p:inputText id="estoque" size="10" maxlength="4" value="#{cadastroProdutoBean.produto.quantidadeEstoque}"/>
