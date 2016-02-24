@@ -1,11 +1,20 @@
 package sistemaDeVendas.repositories;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+
+import sistemaDeVendas.filters.ProdutoFilter;
 import sistemaDeVendas.model.Produto;
 
 public class ProdutoRepository implements Serializable{
@@ -33,5 +42,21 @@ public class ProdutoRepository implements Serializable{
 	}
 	
 	
+	@SuppressWarnings("unchecked")
+	public List<Produto> filtrados(ProdutoFilter produtoFilter) {
+		
+		Session session = entityManager.unwrap(Session.class);
+		Criteria criteria = session.createCriteria(Produto.class);
+		
+		if(StringUtils.isNotBlank(produtoFilter.getSku())) {
+			criteria.add(Restrictions.eq("sku", produtoFilter.getSku()));
+		}
+		
+		if(StringUtils.isNotBlank(produtoFilter.getNome())) {
+			criteria.add(Restrictions.ilike("nome", produtoFilter.getNome(), MatchMode.ANYWHERE));
+		}
+		
+		return criteria.addOrder(Order.asc("nome")).list();
+	}
 
 }

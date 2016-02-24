@@ -41,6 +41,14 @@
 	<!-- Here we have all dependencies of project -->
 	<dependencies>
 	
+		<!-- Commons Lang (util) -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
+			<scope>compile</scope>
+		</dependency>
+	
 		<!-- Implementação do BeanValidation com hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
