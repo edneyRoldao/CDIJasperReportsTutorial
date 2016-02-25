@@ -5,19 +5,21 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:o="http://omnifaces.org/ui">
 
-	<ui:define name="title">Cadastro de novo Produto</ui:define>
+	<ui:define name="title">#{cadastroProdutoBean.editando ? 'Alteração de Produto' : 'Inclusão de Produto'}</ui:define>
 			
 	<ui:define name="corpo">
 	
 		<f:metadata>
+			<o:viewParam name="produto" value="#{cadastroProdutoBean.produto}" converter="#{produtoConverter}"/>
 			<f:event listener="#{cadastroProdutoBean.inicializarObjetos()}" type="preRenderView"/>
 		</f:metadata>
 	
 		<h:form>
 			<br/>
-			<h1>Novo Produto</h1>
+			<h1>#{cadastroProdutoBean.editando ? 'Alteração de Produto' : 'Inclusão de Produto'}</h1>
 			
 			<p:messages autoUpdate="true" closable="true"/>
 			

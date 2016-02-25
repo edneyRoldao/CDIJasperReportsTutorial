@@ -3,15 +3,15 @@ package sistemaDeVendas.controllers;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import sistemaDeVendas.filters.ProdutoFilter;
 import sistemaDeVendas.model.Produto;
 import sistemaDeVendas.repositories.ProdutoRepository;
 
-@ManagedBean
+@Named
 @ViewScoped
 public class PesquisaProdutosBean implements Serializable{
 

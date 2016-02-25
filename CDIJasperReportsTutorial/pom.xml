@@ -41,6 +41,14 @@
 	<!-- Here we have all dependencies of project -->
 	<dependencies>
 	
+		<!-- OmniFaces - (JSFUtil) -->
+		<dependency>
+			<groupId>org.omnifaces</groupId>
+			<artifactId>omnifaces</artifactId>
+			<version>1.5</version>
+			<scope>compile</scope>
+		</dependency>
+	
 		<!-- Commons Lang (util) -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>

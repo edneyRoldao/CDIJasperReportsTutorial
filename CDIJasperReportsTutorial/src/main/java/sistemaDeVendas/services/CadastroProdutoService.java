@@ -22,7 +22,7 @@ public class CadastroProdutoService implements Serializable{
 		
 		Produto produto = produtoRepository.buscarPorSKU(value.getSku());
 		
-		if(produto != null) {
+		if(produto != null && !produto.equals(value)) {
 			throw new BusinessException("Já existe um produto com o SKU informado !");
 		}
 		

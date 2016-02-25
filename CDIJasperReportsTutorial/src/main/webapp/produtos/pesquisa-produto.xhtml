@@ -55,7 +55,7 @@
 
 				<p:column headerText="Valor Unitário" style="text-align:right; width:120px">
 					<h:outputText value="#{prod.valorUnitario}">
-						<f:convertNumber type="currency"/>
+						<f:convertNumber type="currency" />
 					</h:outputText>
 				</p:column>
 				
@@ -64,7 +64,9 @@
 				</p:column>
 
 				<p:column style="text-align:center; width:100px">
-					<p:button icon="ui-icon-pencil" title="Editar"/>
+					<p:button outcome="/produtos/cadastro-produto" icon="ui-icon-pencil" title="Editar">
+						<f:param name="produto" value="#{prod.id}"/>
+					</p:button>
 					<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="PF('exclusaoConfirm').show()"/>
 				</p:column>
 				
@@ -79,33 +81,3 @@
 	</ui:define>
 	
 </ui:composition>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
