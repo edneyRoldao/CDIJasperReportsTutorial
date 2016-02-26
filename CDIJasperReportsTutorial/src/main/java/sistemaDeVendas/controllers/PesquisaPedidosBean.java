@@ -1,26 +1,44 @@
 package sistemaDeVendas.controllers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-@ManagedBean
-@RequestScoped
-public class PesquisaPedidosBean {
+import sistemaDeVendas.filters.PedidoFilter;
+import sistemaDeVendas.model.Pedido;
+import sistemaDeVendas.repositories.PedidoRepository;
 
-	private List<Integer> pedidosFiltrados;
+@Named
+@ViewScoped
+public class PesquisaPedidosBean implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@Inject
+	private PedidoRepository repository;
 	
+	private PedidoFilter filter;
+	private List<Pedido> listaFiltradaPedidos;
+	
+
+	//Construtor
 	public PesquisaPedidosBean() {
-		pedidosFiltrados = new ArrayList<>();
-		for(int i = 0; i < 50; i++) {
-			pedidosFiltrados.add(i);
-		}
+		filter = new PedidoFilter();
+		listaFiltradaPedidos = new ArrayList<>();
 	}
 	
-	public List<Integer> getPedidosFiltrados() {
-		return pedidosFiltrados;
+	//Método
+	public void buscarListaFiltrada() {
+		listaFiltradaPedidos = repository.filtrarPedidos(filter);
+	}
+
+	//Getters and Setters
+	public List<Pedido> getListaFiltradaPedidos() {
+		return listaFiltradaPedidos;
 	}
 	
 }
