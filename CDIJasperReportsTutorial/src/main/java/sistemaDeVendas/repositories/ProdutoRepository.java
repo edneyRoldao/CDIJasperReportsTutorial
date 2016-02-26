@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
@@ -14,7 +15,9 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
+import sistemaDeVendas.exceptions.BusinessException;
 import sistemaDeVendas.filters.ProdutoFilter;
+import sistemaDeVendas.jpa.Transactional;
 import sistemaDeVendas.model.Produto;
 
 public class ProdutoRepository implements Serializable{
@@ -29,6 +32,18 @@ public class ProdutoRepository implements Serializable{
 		return entityManager.merge(produto);
 	}
 
+	
+	@Transactional
+	public void remover(Produto produto) {
+		try {
+			produto = buscarPorId(produto.getId());
+			entityManager.remove(produto);
+			entityManager.flush();
+		} catch (PersistenceException e) {
+			throw new BusinessException("Produto não pode ser excluido pois está sendo utilizado !");
+		}
+	}
+	
 
 	public Produto buscarPorSKU(String sku) {
 		try {
