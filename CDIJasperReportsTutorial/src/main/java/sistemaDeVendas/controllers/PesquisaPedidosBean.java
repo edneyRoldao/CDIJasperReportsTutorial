@@ -8,6 +8,7 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import sistemaDeVendas.enuns.StatusPedido;
 import sistemaDeVendas.filters.PedidoFilter;
 import sistemaDeVendas.model.Pedido;
 import sistemaDeVendas.repositories.PedidoRepository;
@@ -20,25 +21,32 @@ public class PesquisaPedidosBean implements Serializable {
 
 	@Inject
 	private PedidoRepository repository;
-	
+
 	private PedidoFilter filter;
 	private List<Pedido> listaFiltradaPedidos;
-	
 
-	//Construtor
+	// Construtor
 	public PesquisaPedidosBean() {
 		filter = new PedidoFilter();
 		listaFiltradaPedidos = new ArrayList<>();
 	}
-	
-	//Método
+
+	// Métodos
 	public void buscarListaFiltrada() {
 		listaFiltradaPedidos = repository.filtrarPedidos(filter);
 	}
 
-	//Getters and Setters
+	public StatusPedido[] getStatuses() {
+		return StatusPedido.values();
+	}
+
+	// Getters and Setters
 	public List<Pedido> getListaFiltradaPedidos() {
 		return listaFiltradaPedidos;
 	}
-	
+
+	public PedidoFilter getFilter() {
+		return filter;
+	}
+
 }

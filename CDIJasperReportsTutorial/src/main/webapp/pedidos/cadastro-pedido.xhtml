@@ -6,6 +6,10 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<f:metadata>
+		<f:event listener="#{cadastroPedidoBean.inicializar()}" type="preRenderView"/>
+	</f:metadata>
 
 	<ui:define name="title">Cadastro de novo Pedido</ui:define>
 			
@@ -13,6 +17,8 @@
 		<h:form>
 			<br/>
 			<h1>Novo Pedido</h1>
+			
+			<p:messages closable="true"/>
 			
 			<ui:include src="/WEB-INF/template/pedidos/submenu-pedido.xhtml" />
 			

@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import sistemaDeVendas.enuns.FormaPagamento;
@@ -35,15 +36,28 @@ public class Pedido implements Serializable {
 	private Date dataCriacao;
 	private String observacao;
 	private Date dataEntrega;
-	private BigDecimal valorFrete;
-	private BigDecimal valorDesconto;
-	private BigDecimal valorTotal;
-	private StatusPedido status;
+	private BigDecimal valorFrete = BigDecimal.ZERO;
+	private BigDecimal valorDesconto = BigDecimal.ZERO;
+	private BigDecimal valorTotal = BigDecimal.ZERO;
+	private StatusPedido status = StatusPedido.ORCAMENTO;
 	private FormaPagamento formaPagamento;
 	private Usuario vendedor;
 	private Cliente cliente;
 	private EnderecoEntrega enderecoEntrega;
 	private List<ItemPedido> itens = new ArrayList<>();
+	
+	
+	//Métodos auxiliares
+	@Transient
+	public boolean isNovo() {
+		return getId() == null;
+	}
+	
+	@Transient
+	public boolean isExiste() {
+		return !isNovo();
+	}
+	
 
 	@Id
 	@GeneratedValue

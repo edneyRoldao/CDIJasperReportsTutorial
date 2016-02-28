@@ -1,4 +1,4 @@
-package sistemaDeVendas.jsf.util;
+package sistemaDeVendas.converters;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -6,31 +6,33 @@ import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import sistemaDeVendas.model.Categoria;
-import sistemaDeVendas.repositories.CategoriaRepository;
+import sistemaDeVendas.model.Produto;
+import sistemaDeVendas.repositories.ProdutoRepository;
 
 @Named
-public class CategoriaConverter implements Converter{
+public class ProdutoConverter implements Converter{
 	
 	@Inject
-	private CategoriaRepository categoriaRepository;
+	private ProdutoRepository ProdutoRepository;
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		Categoria categoria = null;
+		Produto produto = null;
 		
 		if(value != null) {
 			Long id = new Long(value);
-			categoria = categoriaRepository.buscarPorId(id);
+			produto = ProdutoRepository.buscarPorId(id);
 		}
 		
-		return categoria;
+		return produto;
 	}
 
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		if(value != null) {
-			return ((Categoria) value).getId().toString();
+			//return ((Produto) value).getId().toString();
+			Produto produto  = (Produto) value;
+			return produto.getId() == null ? null : produto.getId().toString();
 		}
 		
 		return "";

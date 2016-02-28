@@ -17,7 +17,7 @@
 			<p:toolbar style="margin-top:20px">
 			
 				<p:toolbarGroup>
-					<p:commandButton value="Pesquisa"/>
+					<p:commandButton value="Pesquisa" action="#{pesquisaPedidosBean.buscarListaFiltrada()}" update="@form"/>
 				</p:toolbarGroup>
 				
 				<p:toolbarGroup align="right">
@@ -30,59 +30,61 @@
 			
 				<p:outputLabel value="Número"/>
 				<h:panelGroup>
-					<p:inputText size="10"/>
+					<p:inputText size="10" value="#{pesquisaPedidosBean.filter.numeroDe}"/>
 					a
-					<p:inputText size="10"/>
+					<p:inputText size="10" value="#{pesquisaPedidosBean.filter.numeroAte}"/>
 				</h:panelGroup>				
 				
 				<p:outputLabel value="Data de criação"/>
 				<h:panelGroup>
-					<p:calendar size="10" pattern="dd/MM/yyyy"/>
+					<p:calendar size="10" pattern="dd/MM/yyyy" value="#{pesquisaPedidosBean.filter.dataCriacaoDe}"/>
 					a
-					<p:calendar size="10" pattern="dd/MM/yyyy"/>
+					<p:calendar size="10" pattern="dd/MM/yyyy" value="#{pesquisaPedidosBean.filter.dataCriacaoAte}"/>
 				</h:panelGroup>				
 	
 				<p:outputLabel value="Vendedor"/>
-				<p:inputText id="vendedor" size="40"/>
+				<p:inputText id="vendedor" size="40" value="#{pesquisaPedidosBean.filter.nomeVendedor}"/>
 				
 				<p:outputLabel value="Cliente"/>
-				<p:inputText id="cliente" size="40"/>
+				<p:inputText id="cliente" size="40" value="#{pesquisaPedidosBean.filter.nomeCliente}"/>
 				
 				<p:outputLabel value="Status"/>
-				<p:selectManyCheckbox>
-					<f:selectItem itemLabel="Orçamento"/>
-					<f:selectItem itemLabel="Emitido"/>
-					<f:selectItem itemLabel="Cancelado"/>
+				<p:selectManyCheckbox value="#{pesquisaPedidosBean.filter.statuses}">
+					<f:selectItems value="#{pesquisaPedidosBean.statuses}" var="#{status}" itemValue="#{status}" itemLabel="#{status.descricao}"/>
 				</p:selectManyCheckbox>
 				
 			</p:panelGrid>
 			
-			<p:dataTable id="pedidoTB" value="#{pesquisaPedidosBean.pedidosFiltrados}" var="pedido"
+			<p:dataTable id="pedidoTB" value="#{pesquisaPedidosBean.listaFiltradaPedidos}" var="pedido"
 				style="margin-top:20px" emptyMessage="Nenhum pedido encontrado." rows="20" paginator="true"
 					paginatorAlwaysVisible="false" paginatorPosition="bottom">
 					
 				<p:column headerText="Número" style="text-align:center;width:100px">
-					<h:outputText value="12345"/>	
+					<h:outputText value="#{pedido.id}"/>	
 				</p:column>
 
 				<p:column headerText="Cliente">
-					<h:outputText value="Supermarket Edney Roldão"/>	
+					<h:outputText value="#{pedido.cliente.nome}"/>	
 				</p:column>
 
 				<p:column headerText="Vendedor">
-					<h:outputText value="Nadine Roldão"/>	
+					<h:outputText value="#{pedido.vendedor.nome}"/>	
 				</p:column>
 
 				<p:column headerText="data da criação" style="text-align:center;width:140px">
-					<h:outputText value="10/05/1015"/>	
+					<h:outputText value="#{pedido.dataCriacao}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>	
 				</p:column>
 
 				<p:column headerText="Valor Total" style="text-align:right;width:120px">
-					<h:outputText value="R$ 1.230,44"/>	
+					<h:outputText value="#{pedido.valorTotal}">
+						<f:convertNumber type="currency"/>
+					</h:outputText>	
 				</p:column>
 
 				<p:column headerText="Status" style="width:100px">
-					<h:outputText value="Emitido"/>	
+					<h:outputText value="#{pedido.status.descricao}"/>	
 				</p:column>
 
 				<p:column style="text-align:center;width:50px">

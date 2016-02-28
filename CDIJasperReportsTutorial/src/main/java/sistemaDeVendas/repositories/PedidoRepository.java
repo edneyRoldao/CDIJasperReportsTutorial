@@ -56,5 +56,8 @@ public class PedidoRepository implements Serializable{
 		return criteria.addOrder(Order.asc("id")).list();
 	}
 	
+	public Pedido salvar(Pedido pedido) {
+		return this.entityManager.merge(pedido);
+	}
 
 }
