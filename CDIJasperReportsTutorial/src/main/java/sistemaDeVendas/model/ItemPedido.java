@@ -19,8 +19,8 @@ public class ItemPedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-	private Integer quantidade;
-	private BigDecimal valorUnitario;
+	private Integer quantidade = 1;
+	private BigDecimal valorUnitario = BigDecimal.ZERO;
 	private Produto produto;
 	private Pedido pedido;
 
@@ -29,6 +29,16 @@ public class ItemPedido implements Serializable {
 	@Transient
 	public BigDecimal getValorTotal() {
 		return getValorUnitario().multiply(new BigDecimal(getQuantidade()));
+	}
+	
+	@Transient
+	public boolean isProdutoAssocioado() {
+		return getProduto() != null && getProduto().getId() != null;
+	}
+	
+	@Transient
+	public boolean isNotProdutoAssociado() {
+		return !isProdutoAssocioado();
 	}
 	
 	
