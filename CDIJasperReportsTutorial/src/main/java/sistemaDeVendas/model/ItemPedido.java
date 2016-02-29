@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "spv_item_pedido")
@@ -23,6 +24,15 @@ public class ItemPedido implements Serializable {
 	private Produto produto;
 	private Pedido pedido;
 
+	
+	//Métodos auxiliares
+	@Transient
+	public BigDecimal getValorTotal() {
+		return getValorUnitario().multiply(new BigDecimal(getQuantidade()));
+	}
+	
+	
+	//Getters and Setters
 	@Id
 	@GeneratedValue
 	public Long getId() {

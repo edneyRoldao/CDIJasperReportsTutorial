@@ -52,12 +52,15 @@ public class PedidoRepository implements Serializable{
 		if(filter.getStatuses() != null && filter.getStatuses().length > 0)
 			criteria.add(Restrictions.in("status", filter.getStatuses()));
 		
-		
 		return criteria.addOrder(Order.asc("id")).list();
 	}
 	
 	public Pedido salvar(Pedido pedido) {
 		return this.entityManager.merge(pedido);
+	}
+
+	public Pedido buscarPorId(Long id) {
+		return entityManager.find(Pedido.class, id);
 	}
 
 }

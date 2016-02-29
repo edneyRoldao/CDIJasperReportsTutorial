@@ -50,8 +50,15 @@ public class CadastroPedidoBean implements Serializable {
 	public void inicializar() {
 		if (FacesUtil.isNotPostBack()) {
 			listaVendedores = usuarioRepository.listarVendedores();
+			recalcularPedido();
 		}
 	}
+	
+	public void recalcularPedido() {
+		if(pedido != null) 
+			pedido.calcularValorTotal();
+	}
+	
 
 	public List<Cliente> completarCliente(String nome) {
 		return clienteRepository.listarPorNome(nome);
@@ -64,6 +71,10 @@ public class CadastroPedidoBean implements Serializable {
 	private void limpar() {
 		pedido = new Pedido();
 		pedido.setEnderecoEntrega(new EnderecoEntrega());
+	}
+	
+	public boolean isEditandoPedido() {
+		return pedido.getId() != null;
 	}
 
 	// Getters and Setters

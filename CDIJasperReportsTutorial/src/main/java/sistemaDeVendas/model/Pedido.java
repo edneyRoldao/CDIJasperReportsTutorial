@@ -58,6 +58,25 @@ public class Pedido implements Serializable {
 		return !isNovo();
 	}
 	
+	@Transient
+	public void calcularValorTotal() {
+		
+		BigDecimal total = BigDecimal.ZERO;
+		total = total.add(getValorFrete()).subtract(getValorDesconto());
+		
+		for(ItemPedido item : getItens()) {
+			if(item.getPedido() != null && item.getPedido().getId() != null) {
+				total = total.add(item.getValorTotal());
+			}
+		}
+		setValorTotal(total);
+	}
+	
+	@Transient
+	public BigDecimal getSubtotal() {
+		return getValorTotal().subtract(getValorFrete()).add(getValorDesconto());
+	}
+	
 
 	@Id
 	@GeneratedValue
