@@ -24,9 +24,13 @@
 		</p:selectOneMenu>
 	
 		<p:outputLabel value="Cliente" for="cliente"/>
-		<p:autoComplete id="cliente" size="40" dropdown="true" value="#{cadastroPedidoBean.pedido.cliente}" converter="#{clienteConverter}"
-			completeMethod="#{cadastroPedidoBean.completarCliente(cliente.nome)}" var="cliente" itemLabel="#{cliente.nome}" itemValue="#{cliente}" forceSelection="true"/>
-
+		<p:autoComplete 
+			id="cliente" size="40" 
+			dropdown="true" value="#{cadastroPedidoBean.pedido.cliente}" 
+			converter="#{clienteConverter}" completeMethod="#{cadastroPedidoBean.completarCliente(cliente.nome)}" 
+			var="cliente" itemLabel="#{cliente.nome}" 
+			itemValue="#{cliente}" forceSelection="true"/>
+			
 		<p:outputLabel value="Forma de Pagamento" for="formaPagto"/>
 		<p:selectOneMenu id="formaPagto" value="#{cadastroPedidoBean.pedido.formaPagamento}">
 			<f:selectItem itemLabel="Selecione"/>

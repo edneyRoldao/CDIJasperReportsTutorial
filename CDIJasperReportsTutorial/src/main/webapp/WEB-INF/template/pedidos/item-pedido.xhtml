@@ -11,25 +11,27 @@
 			<p:inputText size="8" value="#{item.produto.sku}" rendered="#{item.produtoAssocioado}"/>
 			
 			<p:inputText size="8" value="#{cadastroPedidoBean.sku}" label="SKU" rendered="#{item.notProdutoAssociado}">
-				<p:ajax event="change" process="@this" update="" listener="#{cadastroPedidoBean.carregarProdutoPorSku()}"/>				
+				<p:ajax event="change" process="@this" update="itensTB :formCadastroPedidoId:subtotal :formCadastroPedidoId:vlTotal" 
+					listener="#{cadastroPedidoBean.carregarProdutoPorSku()}"/>				
 			</p:inputText>
 		</p:column>
 
 		<p:column headerText="Produto">
-		
 			<h:outputText value="#{item.produto.nome}" rendered="#{item.produtoAssocioado}" />
-		
+			
 			<p:autoComplete 
 				styleClass="itemPedido"
+				converter="#{produtoConverter}"
 				value="#{cadastroPedidoBean.produtoLinhaEditavel}"
-				completeMethod="#{cadastroPedidoBean.completarCliente(produto.nome)}"
+				completeMethod="#{cadastroPedidoBean.completarProduto(produto.nome)}"
 				var="produto"
 				itemLabel="#{produto.nome}"
 				itemValue="#{produto}"
 				forceSelection="true"
 				rendered="#{item.notProdutoAssociado}">
 				
-				<p:ajax event="itemSelect" update="" listener="#{cadastroPedidoBean.carregarProdutoLinhaEditavel()}"/>
+				<p:ajax event="itemSelect" update="itensTB :formCadastroPedidoId:subtotal :formCadastroPedidoId:vlTotal" 
+					listener="#{cadastroPedidoBean.carregarProdutoLinhaEditavel()}"/>
 				
 			</p:autoComplete>
 		</p:column>
