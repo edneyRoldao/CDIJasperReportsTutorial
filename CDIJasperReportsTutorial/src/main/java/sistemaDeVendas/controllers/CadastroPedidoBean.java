@@ -98,7 +98,7 @@ public class CadastroPedidoBean implements Serializable {
 		
 		if(produtoLinhaEditavel != null) {
 			if(existeItemComProduto(produtoLinhaEditavel)) {
-				FacesUtil.addInfoMessage("Já existe um item no pedido com o produto informado");
+				FacesUtil.addErrorMessage("Já existe um item no pedido com o produto informado");
 			}else {
 				item.setProduto(produtoLinhaEditavel);
 				item.setValorUnitario(produtoLinhaEditavel.getValorUnitario());

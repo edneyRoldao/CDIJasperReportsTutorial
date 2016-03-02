@@ -23,7 +23,7 @@
 				styleClass="itemPedido"
 				converter="#{produtoConverter}"
 				value="#{cadastroPedidoBean.produtoLinhaEditavel}"
-				completeMethod="#{cadastroPedidoBean.completarProduto(produto.nome)}"
+				completeMethod="#{cadastroPedidoBean.completarProduto}"
 				var="produto"
 				itemLabel="#{produto.nome}"
 				itemValue="#{produto}"
