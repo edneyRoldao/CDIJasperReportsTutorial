@@ -8,7 +8,7 @@
 	<p:dataTable value="#{cadastroPedidoBean.pedido.itens}" var="item" id="itensTB">
 
 		<p:column headerText="SKU" style="text-align:center;width:100px">
-			<p:inputText size="8" value="#{item.produto.sku}" rendered="#{item.produtoAssocioado}"/>
+			<h:outputText size="8" value="#{item.produto.sku}" rendered="#{item.produtoAssocioado}"/>
 			
 			<p:inputText size="8" value="#{cadastroPedidoBean.sku}" label="SKU" rendered="#{item.notProdutoAssociado}">
 				<p:ajax event="change" process="@this" update="itensTB :formCadastroPedidoId:subtotal :formCadastroPedidoId:vlTotal" 

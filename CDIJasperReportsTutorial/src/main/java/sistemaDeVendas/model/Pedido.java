@@ -64,7 +64,7 @@ public class Pedido implements Serializable {
 		total = total.add(getValorFrete()).subtract(getValorDesconto());
 		
 		for(ItemPedido item : getItens()) {
-			if(item.getPedido() != null && item.getPedido().getId() != null) {
+			if(item.getProduto() != null && item.getProduto().getId() != null) {
 				total = total.add(item.getValorTotal());
 			}
 		}
