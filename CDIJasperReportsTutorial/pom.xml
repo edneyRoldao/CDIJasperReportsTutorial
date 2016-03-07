@@ -41,6 +41,22 @@
 	<!-- Here we have all dependencies of project -->
 	<dependencies>
 	
+		<!-- Abstração de envio de e-mails obtida no github: https://github.com/codylerum/simple-email -->
+		<dependency>
+			<groupId>com.outjected</groupId>
+			<artifactId>simple-email</artifactId>
+			<version>0.2.1</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<!-- Implementação da API javax.mail -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+			<scope>compile</scope>
+		</dependency>
+	
 		<!-- API de Servlet -->
 		<dependency>
 	        <groupId>javax.servlet</groupId>
