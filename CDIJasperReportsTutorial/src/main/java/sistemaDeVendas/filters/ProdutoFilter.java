@@ -2,7 +2,7 @@ package sistemaDeVendas.filters;
 
 import java.io.Serializable;
 
-import sistemaDeVendas.validation.SKU;
+import sistemaDeVendas.annotations.SKU;
 
 public class ProdutoFilter implements Serializable {
 

@@ -135,6 +135,9 @@ h1 {
 	background: url(#{resource['images:seta-para-baixo.png']}) no-repeat;
 }
 
+.ui-state-disabled {
+	opacity: .80 !important;
+}
 
 
 

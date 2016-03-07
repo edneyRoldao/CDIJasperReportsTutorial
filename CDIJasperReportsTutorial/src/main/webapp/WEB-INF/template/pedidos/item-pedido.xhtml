@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 		
-	<p:dataTable value="#{cadastroPedidoBean.pedido.itens}" var="item" id="itensTB">
+	<p:dataTable value="#{cadastroPedidoBean.pedido.itens}" var="item" id="itensTB" rowIndexVar="index">
 
 		<p:column headerText="SKU" style="text-align:center;width:100px">
 			<h:outputText size="8" value="#{item.produto.sku}" rendered="#{item.produtoAssocioado}"/>
@@ -43,11 +43,19 @@
 		</p:column>
 
 		<p:column headerText="Quantidade" style="text-align:center;width:100px">
-			<p:inputText size="8" value="#{item.quantidade}"/>
+			<p:inputText size="8" value="#{item.quantidade}" disabled="#{cadastroPedidoBean.pedido.notAlteravel}">
+				<p:ajax event="change" process="@this" update="itensTB :formCadastroPedidoId:subtotal :formCadastroPedidoId:vlTotal" 
+					listener="#{cadastroPedidoBean.atualizaQuantidade(item, index)}"/>
+			</p:inputText>
 		</p:column>
 
 		<p:column headerText="Estoque" style="text-align:center;width:100px">
-			<h:outputText value="#{item.produto.quantidadeEstoque}"/>
+		
+			<h:outputText style="#{item.estoqueInsuficiente ? 'color: red' : ''}" value="#{item.produto.quantidadeEstoque}"/>
+			<h:graphicImage library="images" name="alert.jpg" id="semEstoque" rendered="#{item.estoqueInsuficiente}"
+				style="width:11px; height:11px; vertical-align:center; margin-left:5px"/>
+			<p:tooltip for="semEstoque" value="Produto sem estoque" rendered="#{item.estoqueInsuficiente}"/>
+			
 		</p:column>
 
 		<p:column headerText="Valor total" style="text-align:right;width:100px">

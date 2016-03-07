@@ -45,39 +45,38 @@ public class Pedido implements Serializable {
 	private Cliente cliente;
 	private EnderecoEntrega enderecoEntrega;
 	private List<ItemPedido> itens = new ArrayList<>();
-	
-	
-	//Métodos auxiliares
+
+	// Métodos auxiliares
 	@Transient
 	public boolean isNovo() {
 		return getId() == null;
 	}
-	
+
 	@Transient
 	public boolean isExiste() {
 		return !isNovo();
 	}
-	
+
 	public void calcularValorTotal() {
-		
+
 		BigDecimal total = BigDecimal.ZERO;
 		total = total.add(getValorFrete()).subtract(getValorDesconto());
-		
-		for(ItemPedido item : getItens()) {
-			if(item.getProduto() != null && item.getProduto().getId() != null) {
+
+		for (ItemPedido item : getItens()) {
+			if (item.getProduto() != null && item.getProduto().getId() != null) {
 				total = total.add(item.getValorTotal());
 			}
 		}
 		setValorTotal(total);
 	}
-	
+
 	@Transient
 	public BigDecimal getSubtotal() {
 		return getValorTotal().subtract(getValorFrete()).add(getValorDesconto());
 	}
-	
+
 	public void adicionarItemVazio() {
-		if(isOrcamento()) {
+		if (isOrcamento()) {
 			Produto produto = new Produto();
 			ItemPedido item = new ItemPedido();
 			item.setProduto(produto);
@@ -90,8 +89,61 @@ public class Pedido implements Serializable {
 	public boolean isOrcamento() {
 		return StatusPedido.ORCAMENTO.equals(getStatus());
 	}
+
+	public void removerItemVazio() {
+		ItemPedido firstItem = getItens().get(0);
+
+		if (firstItem != null && firstItem.getProduto().getId() == null) {
+			getItens().remove(0);
+		}
+	}
+
+	@Transient
+	public boolean isValorNegativo() {
+		return getValorTotal().compareTo(BigDecimal.ZERO) < 0;
+	}
+
+	@Transient
+	public boolean isEmitido() {
+		return StatusPedido.EMITIDO.equals(getStatus());
+	}
+
+	@Transient
+	public boolean isNotEmissivel() {
+		return ! isEmissivel();
+	}
+
+	@Transient
+	public boolean isEmissivel() {
+		return isExiste() && isOrcamento();
+	}
 	
+	@Transient
+	public boolean isCancelavel() {
+		return isExiste() && ! isCancelado();
+	}
 	
+	@Transient
+	public boolean isNotCancelavel() {
+		return ! isCancelavel();
+	}
+	
+	@Transient
+	public boolean isCancelado() {
+		return StatusPedido.CANCELADO.equals(getStatus());
+	}
+	
+	@Transient
+	public boolean isAlteravel() {
+		return isOrcamento();
+	}
+	
+	@Transient
+	public boolean isNotAlteravel() {
+		return ! isAlteravel();
+	}
+
+	// Getters and Setters
 	@Id
 	@GeneratedValue
 	public Long getId() {
@@ -134,7 +186,7 @@ public class Pedido implements Serializable {
 	}
 
 	@NotNull
-	@Column(name = "valor_frete", nullable = false, precision = 10, scale= 2)
+	@Column(name = "valor_frete", nullable = false, precision = 10, scale = 2)
 	public BigDecimal getValorFrete() {
 		return valorFrete;
 	}

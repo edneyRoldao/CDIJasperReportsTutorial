@@ -41,6 +41,16 @@ public class ItemPedido implements Serializable {
 		return !isProdutoAssocioado();
 	}
 	
+	@Transient
+	public boolean isEstoqueSuficiente() {
+		return getPedido().isEmitido() || getProduto().getId() == null || getProduto().getQuantidadeEstoque() >= getQuantidade();
+	}
+	
+	@Transient
+	public boolean isEstoqueInsuficiente() {
+		return ! isEstoqueSuficiente();
+	}
+	
 	
 	//Getters and Setters
 	@Id

@@ -3,12 +3,16 @@ package sistemaDeVendas.controllers;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Produces;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
 
+import sistemaDeVendas.annotations.PedidoEdicao;
+import sistemaDeVendas.annotations.SKU;
 import sistemaDeVendas.enuns.FormaPagamento;
 import sistemaDeVendas.jsf.util.FacesUtil;
 import sistemaDeVendas.model.Cliente;
@@ -21,7 +25,6 @@ import sistemaDeVendas.repositories.ClienteRepository;
 import sistemaDeVendas.repositories.ProdutoRepository;
 import sistemaDeVendas.repositories.UsuarioRepository;
 import sistemaDeVendas.services.CadastroPedidoService;
-import sistemaDeVendas.validation.SKU;
 
 @Named
 @ViewScoped
@@ -42,8 +45,11 @@ public class CadastroPedidoBean implements Serializable {
 	@Inject
 	ProdutoRepository produtoRepository;
 
-	private String sku;
+	@Produces
+	@PedidoEdicao
 	private Pedido pedido;
+	
+	private String sku;
 	private Produto produtoLinhaEditavel;
 	private List<Usuario> listaVendedores;
 
@@ -54,8 +60,15 @@ public class CadastroPedidoBean implements Serializable {
 
 	// Métodos
 	public void salvarPedido() {
-		pedido = service.salvar(pedido);
-		FacesUtil.addInfoMessage("Pedido cadastrado com sucesso !");
+		
+		pedido.removerItemVazio();
+		
+		try {
+			pedido = service.salvar(pedido);
+			FacesUtil.addInfoMessage("Pedido cadastrado com sucesso !");
+		}finally {
+			pedido.adicionarItemVazio();
+		}
 	}
 
 	public void inicializar() {
@@ -127,6 +140,24 @@ public class CadastroPedidoBean implements Serializable {
 			produtoLinhaEditavel = produtoRepository.buscarPorSKU(sku);
 			carregarProdutoLinhaEditavel();
 		}
+	}
+	
+	public void atualizaQuantidade(ItemPedido item, int index) {
+		
+		if(item.getQuantidade() < 1) {
+			if(index == 0) {
+				item.setQuantidade(1);
+			}else {
+				getPedido().getItens().remove(index);
+			}
+		}
+		
+		pedido.calcularValorTotal();
+	}
+	
+	//Este método é chamado pela bean EmissaoPedidoBean por meio do um listener do CDI, 
+	public void atualizaPedidoEmitido(@Observes PedidoAlteradoEvent event) {
+		pedido = event.getPedido();
 	}
 	
 

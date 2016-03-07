@@ -17,7 +17,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import sistemaDeVendas.validation.SKU;
+import sistemaDeVendas.annotations.SKU;
+import sistemaDeVendas.exceptions.BusinessException;
 
 @Entity
 @Table(name = "spv_produto")
@@ -32,6 +33,23 @@ public class Produto implements Serializable {
 	private Integer quantidadeEstoque;
 	private Categoria categoria;
 
+
+	public void baixarEstoque(Integer quantidade) {
+		int novaQuantidade = getQuantidadeEstoque() - quantidade;
+		
+		if(novaQuantidade < 0) {
+			throw new BusinessException("Não há disponibilidade no estoque de " + quantidade + "Itens do produto" + getSku() + ".");
+		}
+		
+		setQuantidadeEstoque(novaQuantidade);
+	}
+
+	public void adicionarEstoque(Integer quantidade) {
+		setQuantidadeEstoque(getQuantidadeEstoque() + quantidade);
+	}
+	
+	
+	//Getters and Setters
 	@Id
 	@GeneratedValue
 	public Long getId() {
