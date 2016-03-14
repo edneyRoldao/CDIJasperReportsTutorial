@@ -7,12 +7,16 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
+	<f:metadata>
+		<f:viewParam name="dummy"/>
+		<f:event listener="#{graficoPedidoBean.preRender()}" type="preRenderView"/>
+	</f:metadata>
+
 	<ui:define name="title">Dashboard</ui:define>
 	
 	<ui:define name="corpo">
-		<br/><br/><br/><br/>
-		&#160;&#160;&#160; Welcome to the first tutorial CDI and JasperReports !
-		<br/><br/><br/><br/>
+		<h1 class="graficoHeader">Pedidos Criados</h1>
+		<p:lineChart value="#{graficoPedidoBean.model}" styleClass="graficoHome" animate="true" minY="0" legendPosition="e"/>
 	</ui:define>
 	
 </ui:composition>

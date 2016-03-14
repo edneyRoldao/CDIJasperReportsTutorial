@@ -1,6 +1,7 @@
 package sistemaDeVendas.security;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Produces;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -26,6 +27,8 @@ public class SpringSecurity {
 		return name;
 	}
 
+	@Produces
+	@UserLogged
 	private SystemUser getUserLogged() {
 		SystemUser user = null;
 		UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
