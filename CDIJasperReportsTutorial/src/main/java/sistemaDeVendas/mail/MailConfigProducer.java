@@ -19,7 +19,7 @@ public class MailConfigProducer {
 		prop.load(getClass().getResourceAsStream("/mail.properties"));
 		
 		SimpleMailConfig config = new SimpleMailConfig();
-		config.setServerHost(prop.getProperty("mail.server.host"));
+		config.setServerHost(prop.getProperty("main.server.host"));
 		config.setServerPort(Integer.parseInt(prop.getProperty("mail.server.port")));
 		config.setEnableSsl(Boolean.parseBoolean(prop.getProperty("mail.enable.ssl")));
 		config.setAuth(Boolean.parseBoolean(prop.getProperty("mail.auth")));

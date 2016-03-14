@@ -12,9 +12,10 @@
 		</p:toolbarGroup>
 		
 		<p:toolbarGroup align="right">
-			<p:commandButton value="Emitir" action="#{emissaoPedidoBean.emitirPedido()}" disabled="#{cadastroPedidoBean.pedido.notEmissivel}"/>
-			<p:commandButton value="Cancelar" action="#{cancelamentoPedidoBean.cancelarPedido()}" disabled="#{cadastroPedidoBean.pedido.notCancelavel}"/>
-			<p:commandButton value="Enviar por e-mail"/>
+			<p:commandButton value="Emitir" action="#{emissaoPedidoBean.emitirPedido()}" disabled="#{cadastroPedidoBean.pedido.notEmissivel or not springSecurity.emitirPedidoPermitido}"/>
+			<p:commandButton value="Cancelar" action="#{cancelamentoPedidoBean.cancelarPedido()}" disabled="#{cadastroPedidoBean.pedido.notCancelavel or not springSecurity.cancelarPedidoPermitido}"/>
+			<p:commandButton value="Enviar por e-mail" action="#{envioPedidoEmailBean.enviarPedido()}" process="@this"
+				disabled="#{cadastroPedidoBean.pedido.notEnviavelPorEmail}"/>
 
 			<p:separator/>
 			

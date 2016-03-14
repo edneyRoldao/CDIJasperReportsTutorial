@@ -51,6 +51,11 @@ public class Pedido implements Serializable {
 	public boolean isNovo() {
 		return getId() == null;
 	}
+	
+	@Transient
+	public boolean isNotNovo() {
+		return ! isNovo();
+	}
 
 	@Transient
 	public boolean isExiste() {
@@ -134,6 +139,11 @@ public class Pedido implements Serializable {
 	}
 	
 	@Transient
+	public boolean isNotCancelado() {
+		return ! isCancelado();
+	}
+	
+	@Transient
 	public boolean isAlteravel() {
 		return isOrcamento();
 	}
@@ -143,6 +153,16 @@ public class Pedido implements Serializable {
 		return ! isAlteravel();
 	}
 
+	@Transient
+	public boolean isEnviavelPorEmail() {
+		return isNotNovo() || isNotCancelado();
+	}
+	
+	@Transient
+	public boolean isNotEnviavelPorEmail() {
+		return ! isEnviavelPorEmail();
+	}
+	
 	// Getters and Setters
 	@Id
 	@GeneratedValue
