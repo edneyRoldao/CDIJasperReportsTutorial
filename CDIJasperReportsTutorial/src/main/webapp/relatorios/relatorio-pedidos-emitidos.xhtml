@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template/layout-padrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="title">Relatório de Pedidos Emitidos</ui:define>
+	
+	<ui:define name="corpo">
+		<h:form id="frm">
+			<h1>Relatório de Pedidos Emitidos</h1>
+			
+			<p:messages autoUpdate="true" closable="true"/>
+			
+			<p:toolbar style="margin-top:20px">
+				<p:toolbarGroup>
+					<p:commandButton value="Emitir" action="#{relatoriosJasperReportBean.emitirRelatorio()}" ajax="false"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:panelGrid columns="2" id="panel" style="width:100%; margin-top:20px" columnClasses="header, content">
+
+				<p:outputLabel value="Data de Criação"/>
+
+				<h:panelGroup>
+					<p:calendar value="#{relatoriosJasperReportBean.dataInicio}" label="Data Inicial" pattern="dd/MM/yyyy" size="8"/>
+					<p:spacer width="8"/>
+					<h:outputText value="a" />
+					<p:spacer width="8"/>
+					<p:calendar value="#{relatoriosJasperReportBean.dataFinal}" label="Data Final" pattern="dd/MM/yyyy" size="8"/>
+				</h:panelGroup>
+
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>	
